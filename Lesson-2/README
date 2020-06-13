@@ -1,0 +1,20 @@
+Creating docker image
+
+    docker image build -t helloworld:v1 .
+    docker container run helloworld:v1
+
+Pushing image to Docker Hub
+
+    // create docker login with name in  https://hub.docker.com
+    docker login
+    docker image push pjaiswal/helloworld:v1
+
+Push to local registry
+    Run registry:
+        docker container run -d -p 5000:5000 --restart always --name registry registry:2.6.0
+    Tag image for local registry:
+        docker image tag helloworld:v1 localhost:5000/pjaiswal/helloworld:v1
+    Push to local registry:
+        docker image push localhost:5000/pjasiwal/helloworld:v1
+
+

@@ -1,0 +1,69 @@
+=== Create docker swarm:
+    ref# https://rominirani.com/docker-swarm-tutorial-b67470cf8872
+    ref# http://docs.docker.oeynet.com/get-started/part4/
+
+=== Create 2 docker manager machine:
+    docker-machine create -driver virtualbox manager1
+    docker-machine create -driver virtualbox manager2
+    Troubleshoot:
+        "Error with pre-create check: "VBoxManage not found. Make sure VirtualBox is installed and VBoxManage is in the path""
+        --> sudo yum install virtualbox-6.0
+
+=== Check machine created successfully:
+    docker-machine ls
+    docker-machine ip manager1
+    docker-machine ip manager2
+
+=== Create 2 docker worker machine:
+    docker-machine create -driver virtualbox worker1
+    docker-machine create -driver virtualbox worker2
+
+=== SSH Connect with docker machine:
+    docker-machine ssh manager1
+    docker-machine ssh manager2
+    docker-machine ssh worker1
+    docker-machine ssh worker2
+
+=== Initialize docker swarm
+    "docker swarm init --listen-addr <MANAGER-1-IP> --advertise-addr <MANAGER-1-IP>   // run command on both the manager1 node
+
+=== Join worker to this swarm:
+    docker swarm join-token worker                                  // on manager-1 machine
+    docker swarm join --token [manager-token] [manager-address]     // on worker1/2 machine
+
+=== Join manager to this swarm
+    docker swarm join-token manager                                 // on manager-1 machine
+    docker swarm join --token [manager-token] --listen-addr <MANAGER-2-IP> --advertise-addr <MANAGER-2-IP> <MANAGER-1-IP>       // on manager-2 machine
+
+    docker swarm --help
+    docker swarm init
+    docker swarm leave -f (if single node in clustor, need -f)
+
+=== Deploying services to Swarm mode
+    ref# https://docs.docker.com/get-started/swarm-deploy/
+
+    Create service:                                 docker service create --name [service_name] --replicas 4 -p 8080:8080 tomcat   // on manager-1
+    List service and replicas:                      docker service ls
+    Inspect service:                                docker service inspect [service_name]
+    List containers:                                docker service ps [service_name]
+
+=== Scaling up and down a service (on leader/manager1 node)
+    Check the list of running services again:       docker service ps -f "desired-state=running" [service_name]
+    Scale service:                                  docker service scale [service_name]=6
+    Shutdown service:                               docker service rm [service_name]
+    Show the list of services:                      docker service ls
+
+=== Inspecting node (commands need to run on manager node)
+    docker node inspect nodename
+    docker node inspect self
+
+=== Rolling update of service (on manager node)
+    docker service update [service_name] --image tomcat:version2 --update-parallelism 2 --update-delay 10s
+
+=== Shutting down any node  (on manager node)
+    docker node update --availability drain [node_name]
+
+=== Node/Service failure:
+    Stop a service from node                                docker service rm [service_nae]
+    Stop a node where the container is running              docker-machine stop [node_name]         // need to run outside nodes
+    Remove a node from clustor                              docker-machine rm [node_name]           // need to run outside nodes

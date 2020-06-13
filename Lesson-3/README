@@ -1,0 +1,30 @@
+Docker Compose
+     docker-compose up -d
+     docker-compose logs -f
+     docker-compose down
+
+container name pattern:
+    dockercompose2_web_1 --> [context directory]_[service name]_[instance counter]
+    Start using > docker-compose -p pjaiswal up -d
+    docker-compose ps --> shows no services due to the context name not found
+    docker-compose -p pjaiswal ps --> give all the containers defined under pjaiswal context
+
+Multiple docker-compose file extending/overriding:
+    docker-compose \
+    -f docker-compose.yml \
+    -f docker-compose-sit.yml \
+    -f docker-compose-prod.yml \
+    up -d
+
+
+    docker-compose \
+    -f docker-compose.yml \
+    -f docker-compose-sit.yml \
+    -f docker-compose-prod.yml \
+    ps
+
+    docker-compose \
+    -f docker-compose.yml \
+    -f docker-compose-sit.yml \
+    -f docker-compose-prod.yml \
+    down

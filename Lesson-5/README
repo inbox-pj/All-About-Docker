@@ -1,0 +1,12 @@
+=== PRE-REQUISITE:
+    Swarm clustor has to be setup as explained in Lesson-4
+
+=== Multi-container application on multi-host cluster
+
+    1)  Login to manager1                                   docker-machine ssh manager1
+    2)  Create a new yaml file as similar like Lesson-5
+    3)  Deploy application to Swarm:                        docker stack deploy --compose-file=docker-compose.yml [service name]
+    4)  Check the deployment:                               docker stack ls
+                                                            docker service ls
+    5)  Remove stack:                                       docker stack rm [service_name]
+

@@ -1,0 +1,31 @@
+###### https://dmp.fabric8.io/
+###### https://github.com/fabric8io/docker-maven-plugin
+
+Install Docker Engine on CentOS
+    ref# https://docs.docker.com/engine/install/centos/
+	curl -sSL https://get.docker.com/ | sh
+
+Install Docker Machine
+    ref# https://docs.docker.com/machine/install-machine/
+
+infomration about docker:
+	docker info
+
+Complete docker command:
+	docker --help
+
+Managing docker container:
+	docker container run -d --name [name] tomcat
+	docker container run -it tomcat
+	docker container run -it --name [name] tomcat
+	docker container run -it --name [name] tomcat bash
+	docker container rm -f [name]
+
+Expose Ports and volumes
+	docker container run -it --name [name] -P tomcat
+	docker container run -it --name [name] -p [host_port]:[container_port] tomcat	
+	docker container run -it --name [name] -p [host_port]:[container_port] -v /src/Projects/All-About-Docker/Lesson-1/sample.war:/usr/local/tomcat/webapps/sample.war tomcat
+
+build docker image using maven
+    mvn package -Pdocker
+    maven install -Pdocker

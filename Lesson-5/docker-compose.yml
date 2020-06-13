@@ -1,0 +1,12 @@
+version: '3'
+services:
+  web:
+    image: tomcat
+    volumes:
+      - /src/Projects/All-About-Docker/Lesson-3/docker-compose-2/:/usr/local/tomcat/webapps
+    ports:
+      - 8080:8080
+    depends_on:
+      - os
+  os:
+    image: ubuntu
