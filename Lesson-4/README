@@ -7,7 +7,8 @@
     docker-machine create -driver virtualbox manager2
     Troubleshoot:
         "Error with pre-create check: "VBoxManage not found. Make sure VirtualBox is installed and VBoxManage is in the path""
-        --> sudo yum install virtualbox-6.0
+        --> sudo yum install VirtualBox-6.1
+        --> sudo yum install VirtualBox-6.1 --disablerepo=C2P-YUM
 
 === Check machine created successfully:
     docker-machine ls
@@ -56,7 +57,8 @@
 === Inspecting node (commands need to run on manager node)
     docker node inspect nodename
     docker node inspect self
-
+    docker node ls
+    
 === Rolling update of service (on manager node)
     docker service update [service_name] --image tomcat:version2 --update-parallelism 2 --update-delay 10s
 
