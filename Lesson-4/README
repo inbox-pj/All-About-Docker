@@ -1,3 +1,15 @@
+https://training.play-with-docker.com/docker-networking-hol/#:~:text=The%20output%20to%20the%20previous,%2Dc5%20.
+
+
+=== Networking Basics
+   Step 1: List networks
+         docker network ls
+   Step 2: Inspect a network
+         docker network inspect <network>
+   
+
+
+
 === Create docker swarm:
     ref# https://rominirani.com/docker-swarm-tutorial-b67470cf8872
     ref# http://docs.docker.oeynet.com/get-started/part4/
